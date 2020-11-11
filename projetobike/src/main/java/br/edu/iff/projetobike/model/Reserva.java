@@ -2,7 +2,7 @@ package br.edu.iff.projetobike.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,31 +11,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import br.edu.iff.projetobike.annotation.DateValidation;
+
 @Entity
+@DateValidation
 public class Reserva implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservaID;
     @Column(nullable = false)
+    @NotBlank(message = "Data de registro obrigatória")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date horaInicio;
+    @DateTimeFormat(pattern = "YYYY-MM-DD HH:mm:ss")
+    private Calendar horaInicio;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date horaFim;
+    @DateTimeFormat(pattern = "YYYY-MM-DD HH:mm:ss")
+    private Calendar horaFim;
+    @Min(0)
     private float valor;
 
     @JsonManagedReference
     @ManyToOne
+    @NotNull(message = "Cliente Obrigatório")
     private Cliente cliente;
     @JsonManagedReference
-    @OneToMany
+    @ManyToMany
+    @Size(min = 1, message = "Reserva deve ter no mínimo uma bicicleta")
     private List<Bicicleta> bicicletas = new ArrayList<>();
 
     public Long getReservaID() {
@@ -70,19 +85,19 @@ public class Reserva implements Serializable {
         this.valor = valor;
     }
 
-    public Date getHoraFim() {
+    public Calendar getHoraFim() {
         return horaFim;
     }
 
-    public void setHoraFim(Date horaFim) {
+    public void setHoraFim(Calendar horaFim) {
         this.horaFim = horaFim;
     }
 
-    public Date getHoraInicio() {
+    public Calendar getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(Calendar horaInicio) {
         this.horaInicio = horaInicio;
     }
 

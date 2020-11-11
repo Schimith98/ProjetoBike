@@ -13,8 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
+import br.edu.iff.projetobike.annotation.EmailValidation;
 
 @Entity
 public class Cliente implements Serializable {
@@ -23,28 +29,44 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clienteID;
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "Nome obrigatório")
+    @Length(max = 50, message = "Nome deve ter no máximo 50 caracteres")
     private String nome;
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "Sobrenome obrigatório")
+    @Length(max = 50, message = "Sobrenome deve ter no máximo 50 caracteres")
     private String sobrenome;
     @Column(nullable = false, unique = true, length = 11)
+    @NotBlank(message = "CPF obrigatório")
+    @CPF(message = "CPF inválido")
     private String cpf;
     @Column(nullable = false, unique = true, length = 50)
+    @NotBlank(message = "Email obrigatório")
+    @EmailValidation
     private String email;
-    @Column(nullable = false, length = 10)
+    @Column( nullable = false, length = 10)
+    @NotBlank(message = "Senha obrigatório")
+    @Length(max = 10, min = 5, message = "Sobrenome deve ter entre 5 e 10 caracteres")
     private String senha;
     @Column(nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
     private TipoCartaoCreditoEnum tipoCartaoCredito;
     @Column(nullable = false, length = 16)
+    @NotBlank(message = "Cartão de crédito obrigatório")
+    @Length(max = 16, min = 16,  message = "Número do cartão deve ter 16 caracteres")
     private String cartaoCreditoNo;
     @Column(nullable = false)
+    @Min(0)
+    @Max(12)
     private int validCartaoCreditoMes;
     @Column(nullable = false)
     private int validCartaoCreditoAno;
     @Column(nullable = false, length = 3)
-    private String codCartaoCredito;
+    @Min(001)
+    @Max(999)
+    private int codCartaoCredito;
 
-    @JsonBackReference
+    
     @OneToMany(mappedBy = "cliente")
     private List<Reserva> reservas = new ArrayList<>();
 
@@ -76,11 +98,11 @@ public class Cliente implements Serializable {
         return nome;
     }
 
-    public String getCodCartaoCredito() {
+    public int getCodCartaoCredito() {
         return codCartaoCredito;
     }
 
-    public void setCodCartaoCredito(String codCartaoCredito) {
+    public void setCodCartaoCredito(int codCartaoCredito) {
         this.codCartaoCredito = codCartaoCredito;
     }
 

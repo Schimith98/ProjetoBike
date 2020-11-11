@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Positive;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Bicicleta implements Serializable {
@@ -23,12 +23,12 @@ public class Bicicleta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bicicletaID;
     @Column(nullable = false)
+    @Positive
     private float preco;
     @Column(nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private TipoBicicletaEnum tipo;
 
-    @JsonBackReference
     @ManyToMany(mappedBy = "bicicletas")
     private List<Reserva> reservas = new ArrayList<>();
 
