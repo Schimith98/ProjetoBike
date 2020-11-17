@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.iff.projetobike.model.Cliente;
 import br.edu.iff.projetobike.repository.ClienteRepository;
-import javassist.NotFoundException;
+import br.edu.iff.projetobike.exception.NotFoundException;
 
 @Service
 public class ClienteService {
@@ -68,20 +68,20 @@ public class ClienteService {
         try {
             repo.delete(obj);
         } catch (Exception e) {
-            throw new RunTimeException("Falha ao excluir o cliente.");
+            throw new RuntimeException("Falha ao excluir o cliente.");
         }
     }
 
     private void verificaCpfEmailCadastrado(String cpf, String email) {
         List<Cliente> result = repo.findByCpfOrEmail(cpf, email);
         if (!result.isEmpty()) {
-            throw new RunTimeException("CPF ou EMAIL já cadastrados.");
+            throw new RuntimeException("CPF ou EMAIL já cadastrados.");
         }
     }
 
     private void verificaExclusaoClienteComReservas(Cliente c) {
         if (!c.getReservas().isEmpty()) {
-            throw new RunTimeException("Cliente possui reservas. Não pode ser excluído.");
+            throw new RuntimeException("Cliente possui reservas. Não pode ser excluído.");
         }
     }
 

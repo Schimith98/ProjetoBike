@@ -20,7 +20,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -44,11 +43,11 @@ public class Reserva implements Serializable {
     @Min(0)
     private float valor;
 
-    @JsonManagedReference
+    
     @ManyToOne
     @NotNull(message = "Cliente Obrigatório")
     private Cliente cliente;
-    @JsonManagedReference
+    
     @ManyToMany
     @Size(min = 1, message = "Reserva deve ter no mínimo uma bicicleta")
     private List<Bicicleta> bicicletas = new ArrayList<>();

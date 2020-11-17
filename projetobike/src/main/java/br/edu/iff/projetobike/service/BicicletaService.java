@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.edu.iff.projetobike.exception.NotFoundException;
 import br.edu.iff.projetobike.model.Bicicleta;
 import br.edu.iff.projetobike.model.Reserva;
 import br.edu.iff.projetobike.repository.BicicletaRepository;
@@ -62,7 +63,7 @@ public class BicicletaService {
             b.setTipo(obj.getTipo());
             return repo.save(b);
         } catch (Exception e) {
-            throw new RunTimeException("Falha ao atualizar o cliente.");
+            throw new RuntimeException("Falha ao atualizar o cliente.");
         }
     }
 

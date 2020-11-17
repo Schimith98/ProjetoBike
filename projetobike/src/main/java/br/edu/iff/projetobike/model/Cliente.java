@@ -17,6 +17,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -66,7 +68,7 @@ public class Cliente implements Serializable {
     @Max(999)
     private int codCartaoCredito;
 
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Reserva> reservas = new ArrayList<>();
 

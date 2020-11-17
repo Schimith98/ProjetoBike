@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import br.edu.iff.projetobike.model.Bicicleta;
 import br.edu.iff.projetobike.model.Reserva;
 import br.edu.iff.projetobike.repository.ReservaRepository;
-import javassist.NotFoundException;
+import br.edu.iff.projetobike.exception.NotFoundException;
 
 public class ReservaService {
     @Autowired

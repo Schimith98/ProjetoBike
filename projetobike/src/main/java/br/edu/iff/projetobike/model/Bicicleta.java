@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Bicicleta implements Serializable {
@@ -29,6 +31,7 @@ public class Bicicleta implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoBicicletaEnum tipo;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "bicicletas")
     private List<Reserva> reservas = new ArrayList<>();
 
