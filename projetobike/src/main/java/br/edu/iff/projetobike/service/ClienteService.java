@@ -41,7 +41,7 @@ public class ClienteService {
         try {
             return repo.save(c);
         } catch (Exception e) {
-            throw new NotFoundException("Falha ao salvar o cliente.");
+            throw new RuntimeException("Falha ao salvar o cliente.");
         }
     }
 
@@ -57,7 +57,7 @@ public class ClienteService {
             c.setValidCartaoCreditoAno(obj.getValidCartaoCreditoAno());
             return repo.save(c);
         } catch (Exception e) {
-            throw new NotFoundException("Falha ao atualizar o cliente.");
+            throw new RuntimeException("Falha ao atualizar o cliente.");
         }
     }
 

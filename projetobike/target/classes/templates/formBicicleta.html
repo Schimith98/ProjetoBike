@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: imports-css(title='Bicicletas')}">
+    <title>title</title>
+</head>
+
+<body>
+    <div th:replace="~{fragmentos :: barramenu(pagina='bicicletas')}" />
+
+    <div class="container" style="width: 60%; margin-top: 20px">
+        <div class="card-header">
+            <h4>Cadastro de bicicletas
+                <a class="btn btn-primary float-right" th:href="@{~/bicicletas}" role="button">voltar</a>
+            </h4>
+        </div>
+
+        <div th:replace="~{fragmentos :: mensagens}"></div>
+
+        <form th:object="${bicicleta}" th:action="@{~/hoteis/bicicleta/{id}(id=${bicicleta.id})}" method="post"
+            class="card-body">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="nome">Nome:</label>
+                    <input th:field="*{nome}" type="text" class="form-control" placeholder="Nome" required="required"
+                        maxlength="100" />
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="preco">Preço:</label>
+                <input th:field="*{preco}" type="text" class="form-control" placeholder="Preço" required="required" />
+            </div>
+
+            <div class="form-row">
+                <select class="form-control form-control-sm" th:field="*{bicicletas[__${i.index}__].tipo}" required="required">
+                    <option th:each="t : ${tiposBicicleta}" th:value="${t}" th:text="${t}">content</option>
+                </select>
+            </div>
+
+            <div class="card-footer">
+                <input type="submit" class="btn btn-success" value="salvar" />
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+    <div th:replace="~{fragmentos :: imports-js}" />
+    <script>
+
+    </script>
+</body>
+
+</html>
