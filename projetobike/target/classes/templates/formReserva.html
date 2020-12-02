@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Reservas')}">
+        <title>title</title>
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='bicicletas')}"/>
+
+        <div class="container" style="margin-top: 20px; width: 60%">
+            <div class="card-header">
+                <h4>Cadastro de reservas
+                    <a class="btn btn-primary float-right" th:href="@{~/bicicletas/{bicicleta}/reservas(bicicleta=${idbicicleta})}" role="button">voltar</a>
+                </h4>
+            </div>
+
+            <div th:replace="~{fragmentos :: mensagens}"></div>
+
+
+            <form th:object="${reserva}"  th:action="@{~/bicicletas/{bicicleta}/reservas/reserva/{id}(id=${reserva.id}, bicicleta=${idbicicleta})}" method="post" class="card-body">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>bicicletas:</label>
+                        <select class="form-control" th:field="*{bicicleta.bicicletaID}">
+                            <option th:each="bicicleta : ${bicicletas}" th:text="${bicicleta.tipo}" th:value="${bicicleta.bicicletaID}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Cliente:</label>
+                        <select class="form-control" th:field="*{cliente.id}">
+                            <option th:each="cliente : ${clientes}" th:text="${cliente.nome}" th:value="${cliente.id}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Iní­cio:</label>
+                        <input type="date" th:field="*{horaInicio}" required="required"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Término:</label>
+                        <input type="date" th:field="*{horaFim}" required="required"/>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="salvar"/>
+                </div>
+            </form>
+
+        </div>
+
+        <div th:replace="~{fragmentos :: imports-js}"/>
+    </body>
+</html>

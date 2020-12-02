@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: imports-css(title='bicicletas')}">
+    <title>title</title>
+</head>
+
+<body>
+    <div th:replace="~{fragmentos :: barramenu(pagina='bicicletas')}" />
+
+    <div class="container" style="margin-top: 20px">
+        <div class="card-header">
+            <h4>
+                Bicicletas Cadastrados
+                <a class="btn btn-primary float-right" th:href="@{~/bicicletas}" role="button">Novo bicicleta</a>
+            </h4>
+        </div>
+
+        <div class="card" th:each="bicicleta : ${bicicletas}">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${bicicleta.bicicletaID}"></h5>
+            </div>
+            <div class="card-text">
+                <span th:text="${bicicleta.tipo}"/><br/>
+            </div>
+
+
+            <div class="card-text">
+                <a th:href="@{~/bicicletas/{idbicicleta}/reservas(idbicicleta=${bicicleta.bicicletaID})}"
+                    class="btn btn-success">Reservas</a>
+                <a th:href="@{'~/bicicletas/bicicleta/'+${bicicleta.bicicletaID}}" class="btn btn-warning">Editar</a>
+                <a th:href="@{'~/bicicletas/'+${bicicleta.bicicletaID}+'/deletar'}" class="btn btn-danger"
+                    onclick="return confirm('Deseja realmente excluir esse bicicleta?')">Excluir</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <div th:replace="~{fragmentos :: imports-js}" />
+</body>
+
+</html>

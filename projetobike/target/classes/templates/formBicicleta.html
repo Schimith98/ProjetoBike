@@ -17,7 +17,7 @@
 
         <div th:replace="~{fragmentos :: mensagens}"></div>
 
-        <form th:object="${bicicleta}" th:action="@{~/hoteis/bicicleta/{id}(id=${bicicleta.id})}" method="post"
+        <form th:object="${bicicleta}" th:action="@{~/bicicletas/{id}(id=${bicicleta.id})}" method="post"
             class="card-body">
             <input type="hidden" th:field="*{id}" />
             <div class="form-row">

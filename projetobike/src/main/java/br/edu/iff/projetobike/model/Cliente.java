@@ -48,7 +48,7 @@ public class Cliente implements Serializable {
     private String email;
     @Column( nullable = false, length = 10)
     @NotBlank(message = "Senha obrigatório")
-    @Length(max = 10, min = 5, message = "Sobrenome deve ter entre 5 e 10 caracteres")
+    @Length(max = 10, min = 5, message = "Senha deve ter entre 5 e 10 caracteres")
     private String senha;
     @Column(nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
